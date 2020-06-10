@@ -1,17 +1,17 @@
 {% set name = "nghttp2" %}
-{% set version = "1.39.1" %}
+{% set version = "1.41.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://github.com/nghttp2/{{ name }}/releases/download/v{{version}}/nghttp2-{{ version }}.tar.gz
-  sha256: 25b623cd04dc6a863ca3b34ed6247844effe1aa5458229590b3f56a6d53cd692
+  url: https://github.com/nghttp2/{{ name }}/releases/download/v{{ version }}/nghttp2-{{ version }}.tar.gz
+  sha256: eacc6f0f8543583ecd659faf0a3f906ed03826f1d4157b536b4b385fe47c5bb8
 
 build:
   number: 0
-  skip: True  # [not unix]
+  skip: true  # [not unix]
 
 requirements:
   build:
@@ -58,15 +58,14 @@ outputs:
       - lib/pkgconfig/libnghttp2*  # [unix]
       - bin/nghttp*  # [unix]
     test:
-      commands:
-        nghttp -nv https://nghttp2.org
+      commands: nghttp -nv https://nghttp2.org
 
 about:
   home: http://github.com/nghttp2/nghttp2
   license: MIT
   license_family: MIT
   license_file: COPYING
-  summary: 'This is an implementation of Hypertext Transfer Protocol version 2.'
+  summary: This is an implementation of Hypertext Transfer Protocol version 2.
 
   description: |
     This is an implementation of the Hypertext Transfer Protocol version 2 in C.
