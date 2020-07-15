@@ -29,7 +29,6 @@ requirements:
     - openssl  # [unix]
     - libev >=4.11
     - c-ares >=1.7.5
-    - libstdcxx-ng  # [linux]
 
 
 outputs:
@@ -47,7 +46,6 @@ outputs:
         - openssl  # [unix]
         - libev >=4.11
         - c-ares >=1.7.5
-        - libstdcxx-ng  # [linux]
     build:
       run_exports:
         - {{ pin_subpackage('libnghttp2') }}
