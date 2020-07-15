@@ -5,7 +5,7 @@ Home: http://github.com/nghttp2/nghttp2
 
 Package license: MIT
 
-Feedstock license: BSD 3-Clause
+Feedstock license: BSD-3-Clause
 
 Summary: This is an implementation of Hypertext Transfer Protocol version 2.
 
@@ -160,4 +160,6 @@ Feedstock Maintainers
 =====================
 
 * [@cpaulik](https://github.com/cpaulik/)
+* [@mariusvniekerk](https://github.com/mariusvniekerk/)
+* [@wolfv](https://github.com/wolfv/)
 

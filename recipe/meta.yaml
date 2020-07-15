@@ -20,13 +20,13 @@ requirements:
     - make
     - pkg-config  # [unix]
   host:
-    - zlib >=1.2.3
-    - openssl >=1.0.1  # [unix]
+    - zlib
+    - openssl  # [unix]
     - libev >=4.11
     - c-ares >=1.7.5
   run:
-    - zlib >=1.2.3
-    - openssl >=1.0.1  # [unix]
+    - zlib
+    - openssl  # [unix]
     - libev >=4.11
     - c-ares >=1.7.5
     - libstdcxx-ng  # [linux]
@@ -38,13 +38,13 @@ outputs:
       build:
         - {{ compiler('c') }}
       host:
-        - zlib >=1.2.3
-        - openssl >=1.0.1  # [unix]
+        - zlib
+        - openssl  # [unix]
         - libev >=4.11
         - c-ares >=1.7.5
       run:
-        - zlib >=1.2.3
-        - openssl >=1.0.1  # [unix]
+        - zlib
+        - openssl  # [unix]
         - libev >=4.11
         - c-ares >=1.7.5
         - libstdcxx-ng  # [linux]
@@ -79,3 +79,5 @@ about:
 extra:
   recipe-maintainers:
     - cpaulik
+    - mariusvniekerk
+    - wolfv
