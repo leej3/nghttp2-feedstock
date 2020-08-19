@@ -40,6 +40,7 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
+        - make
       host:
         - zlib
         - openssl  # [unix]
@@ -74,6 +75,7 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
+        - make
       host:
         - {{ pin_subpackage('libnghttp2', exact=True) }}
       run:
