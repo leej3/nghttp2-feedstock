@@ -10,7 +10,7 @@ source:
   sha256: eacc6f0f8543583ecd659faf0a3f906ed03826f1d4157b536b4b385fe47c5bb8
 
 build:
-  number: 1
+  number: 2
   skip: true  # [not unix]
 
 requirements:
@@ -35,9 +35,11 @@ requirements:
 
 outputs:
   - name: libnghttp2
+    script: install.sh  # [unix]
     requirements:
       build:
         - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
       host:
         - zlib
         - openssl  # [unix]
@@ -59,7 +61,26 @@ outputs:
       - lib/pkgconfig/libnghttp2*  # [unix]
       - bin/nghttp*  # [unix]
     test:
-      commands: nghttp -nv https://nghttp2.org
+      commands:
+        - nghttp -nv https://nghttp2.org
+        - test ! -f ${PREFIX}/lib/lib{{ name }}.a    # [unix]
+        - test -f ${PREFIX}/lib/lib{{ name }}.so     # [linux]
+
+  - name: libnghttp2-static
+    script: install.sh  # [unix]
+    build:
+      skip: true  # [not unix]
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+      host:
+        - {{ pin_subpackage('libnghttp2', exact=True) }}
+      run:
+        - {{ pin_subpackage('libnghttp2', exact=True) }}
+    test:
+      commands:
+        - test -f ${PREFIX}/lib/lib{{ name }}.a    # [unix]
 
 about:
   home: http://github.com/nghttp2/nghttp2
