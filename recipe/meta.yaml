@@ -10,15 +10,25 @@ source:
   sha256: 45cc3ed91966551f92b31958ceca9b3a9f23ce4faf5cbedb78aa3327cd4e5907
 
 build:
+{% if bootstrapping == 'yes' %}
+  # Please increment by two
   number: 0
+  string: h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}_bootstrapping
+{% else %}
+  # Keep above the number of the _bootstrapping package
+  number: 1
+{% endif %}
   skip: true  # [not unix]
+  script_env:
+    - BOOTSTRAPPING={{ bootstrapping }}
 
 requirements:
   build:
-    - libtool  # [unix]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+{% if bootstrapping != 'yes' %}
     - make
+    - libtool  # [unix]
     - pkg-config  # [unix]
   host:
     - zlib
@@ -31,7 +41,7 @@ requirements:
     - libev >=4.11
     - c-ares >=1.7.5
     - libstdcxx-ng  # [linux]
-
+{% endif %}
 
 outputs:
   - name: libnghttp2
@@ -40,6 +50,7 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
+{% if bootstrapping != 'yes' %}
         - make
       host:
         - zlib
@@ -52,6 +63,7 @@ outputs:
         - libev >=4.11
         - c-ares >=1.7.5
         - libstdcxx-ng  # [linux]
+{% endif %}
     build:
       run_exports:
         - {{ pin_subpackage('libnghttp2') }}
@@ -63,7 +75,9 @@ outputs:
       - bin/nghttp*  # [unix]
     test:
       commands:
+{% if bootstrapping != 'yes' %}
         - nghttp -nv https://nghttp2.org
+{% endif %}
         - test ! -f ${PREFIX}/lib/lib{{ name }}.a    # [unix]
         - test -f ${PREFIX}/lib/lib{{ name }}.so     # [linux]
 
@@ -75,6 +89,7 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
+{% if bootstrapping != 'yes' %}
         - make
       host:
         - {{ pin_subpackage('libnghttp2', exact=True) }}
@@ -82,6 +97,7 @@ outputs:
         - {{ pin_subpackage('libnghttp2', exact=True) }}
         - libev-static
         - c-ares-static
+{% endif %}
     test:
       commands:
         - test -f ${PREFIX}/lib/lib{{ name }}.a    # [unix]
